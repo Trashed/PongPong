@@ -10,6 +10,7 @@
  // ***********************************
  #include "constants.agc"
  #include "gamestate.agc"
+ #include "gui.agc"
  #include "vector.agc"
  #include "paddle.agc"
  #include "game.agc"
@@ -47,7 +48,7 @@ do
 	// Switch-case condition controls the application flow
 	select GetGameState()
 		case STATE_MAIN_MENU:
-			// TODO: MainMenu
+			MainMenu()
 		endcase
 		
 		case STATE_GAME_PLAYING:
