@@ -1,0 +1,13 @@
+# Ignore executables
+*.exe
+
+# Notepad backup files
+*.bak
+
+# AGK IDE files
+*.layout
+*.cbp
+
+# Compile output
+*.byc
+*/SourceCode.txt
