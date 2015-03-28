@@ -33,9 +33,15 @@
 		
 		if getSpriteHit( x, y ) = startGameBtn
 			setSpriteImage( startGameBtn, startGameBtnHoverImg )
+			
+			if getPointerReleased() = TRUE
+				SetGameState( STATE_CREATE_GAME )
+				startGame = TRUE
+			endif
 		else
 			setSpriteImage( startGameBtn, startGameBtnImg )
-		endif
+		endif		
+		
 	
 		sync()
 	endwhile

@@ -51,6 +51,13 @@ do
 			MainMenu()
 		endcase
 		
+		case STATE_CREATE_GAME:
+			// TODO: Create 'CreateGame' method
+			// TODO: Create Paddle objects
+			// TODO: Create a Ball
+			// TODO: Create walls for game area
+		endcase
+		
 		case STATE_GAME_PLAYING:
 			GameLoop()
 		endcase
