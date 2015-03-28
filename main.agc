@@ -9,6 +9,7 @@
  // INCLUDES
  // ***********************************
  #include "constants.agc"
+ #include "gamestate.agc"
  #include "vector.agc"
  #include "paddle.agc"
  #include "game.agc"
@@ -18,10 +19,13 @@
  // ***********************************
  // GLOBALS
  // ***********************************
- g_DeviceName as string : g_DeviceName = getDeviceName()
- g_DeviceWidth = getDeviceWidth() : g_DeviceHeight = getDeviceHeight()
+ global g_DeviceName as string : g_DeviceName = getDeviceName()
+ global g_DeviceWidth = getDeviceWidth() : global g_DeviceHeight = getDeviceHeight()
  
+ global g_gameState = STATE_MAIN_MENU
  
+ global g_PlayerPaddle as GamePaddle
+ global g_AIPaddle as GamePaddle
  
  
  // ***********************************
@@ -40,8 +44,20 @@
  // APPLICATION MAIN LOOP
  // ***********************************
 do
-
-	GameLoop()
+	// Switch-case condition controls the application flow
+	select GetGameState()
+		case STATE_MAIN_MENU:
+			// TODO: MainMenu
+		endcase
+		
+		case STATE_GAME_PLAYING:
+			GameLoop()
+		endcase
+		
+		case default:
+			end
+		endcase
+	endselect
 
     sync()
 loop
