@@ -37,6 +37,8 @@
 			if getPointerReleased() = TRUE
 				SetGameState( STATE_CREATE_GAME )
 				startGame = TRUE
+				setSpriteVisible( startGameBtn, FALSE )
+				setSpriteActive( startGameBtn, FALSE )
 			endif
 		else
 			setSpriteImage( startGameBtn, startGameBtnImg )

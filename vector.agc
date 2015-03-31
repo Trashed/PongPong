@@ -7,14 +7,6 @@
  * 2D vector handling can be found here: http://forum.thegamecreators.com/?m=forum_view&t=192569&b=6
  */
 
-// Vector
-Type Vector2D
-	x as float
-	y as float
-Endtype
-
-
-
 
 // ==============================================================
 // Returns angle between two vectors v1 and v2

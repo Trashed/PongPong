@@ -8,27 +8,17 @@
  */
  
  
- type GamePaddle
-	id as integer			// For sprite ID
-	x as integer
-	y as integer
-	width as integer
-	height as integer
-	offsetX as integer
-	offsetY as integer
-	velocity as Vector2D
-	speed as integer
- endtype
  
  
  
  
- function CreatePaddle( _id, _x, _y )
+ 
+ function CreatePaddle( x as integer, y as integer )
 	
 	paddle as GamePaddle
-	paddle.id = _id
-	paddle.x = _x
-	paddle.y = _y
+	
+	paddle.x = x
+	paddle.y = y
 	paddle.width = 5
 	paddle.height = 15
 	paddle.offsetX = paddle.width / 2
