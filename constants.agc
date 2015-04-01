@@ -20,3 +20,9 @@
 #constant PADDLE_PLAYER		20
 #constant PADDLE_AI			21
 #constant GAME_BALL			22
+#constant BOUNDARY_TOP		23
+#constant BOUNDARY_BOTTOM	24
+
+// Keycodes
+#constant KEYCODE_UP		38
+#constant KEYCODE_DOWN	40

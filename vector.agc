@@ -123,12 +123,12 @@ endfunction r
 // ===============================================================
 // Returns a new vector calculated from an angle (radians)
 // ===============================================================
-function getVectorFromAngle( rads as float )
+function getVectorFromAngle( angle as float )
 	/*
 	** V.x = sin( A )
 	** V.y = -cos( A )
 	*/
 	vect as Vector2D
-	vect.x = sin( rads )
-	vect.y = cos( rads) * -1
+	vect.x = sin( angle )
+	vect.y = cos( angle ) * -1
 endfunction vect
