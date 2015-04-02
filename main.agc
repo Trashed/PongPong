@@ -16,7 +16,7 @@
 #include "game.agc"
 #include "vector.agc"
 #include "paddle.agc"
-#include "ball.agc"
+//#include "ball.agc"
 
 
 
@@ -48,10 +48,16 @@ do
 		case STATE_CREATE_GAME:
 			// Set values to Game objects
 			CreateGame()
+			
+			g_lastFrameTime = timer()
 		endcase
 		
 		case STATE_GAME_PLAYING:
-			GameLoop()
+			currentFrameTime# = timer()
+			deltaTime# = currentFrameTime# - g_lastFrameTime
+			g_lastFrameTime = currentFrameTime#
+			
+			GameLoop( deltaTime# )
 		endcase
 		
 		case default:

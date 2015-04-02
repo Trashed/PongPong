@@ -11,12 +11,12 @@
 // ==============================================================
 // Returns angle between two vectors v1 and v2
 // ==============================================================
-function getAngleRadOfVectors2( v1 as Vector2D, v2 as Vector2D )
+function getAngleFromVectors2( v1 as Vector2D, v2 as Vector2D )
 
 	dot# = dotProductVector2( v1, v2 )
 	lenv1# = getVector2Length( v1 )
 	lenv2# = getVector2Length( v2 )
-	angle# = aCosRad( dot#/( lenv1# * lenv2# ) )
+	angle# = aCos( dot#/( lenv1# * lenv2# ) )
 endfunction angle#
 
 

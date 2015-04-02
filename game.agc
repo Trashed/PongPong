@@ -47,15 +47,15 @@ function CreateGame()
 	//g_GameBall = CreateBall( GAME_BALL, 50, 50 )
 	// Randomize ball angle and velocity <-> direction
 	//setRandomSeed( timer() )
-	randAngle = randomSign( random( 0, 360 ) )
-	dirVect as Vector2D : dirVect = getVectorFromAngle( randAngle )
+	angle = 45 * random( 1, 4 )
+	dirVect as Vector2D : dirVect = getVectorFromAngle( angle )
 	g_GameBall.id = GAME_BALL
 	g_GameBall.x = 50
 	g_GameBall.y = 50
 	g_GameBall.diameter = 30		// This is in pixels!!
 	g_GameBall.maxSpeed = 25
 	//g_GameBall.offset = g_GameBall.radius / 2
-	g_GameBall.startVelocity = makeVector2( dirVect.x * g_GameBall.maxSpeed, dirVect.y * g_GameBall.maxSpeed )
+	g_GameBall.velocity = makeVector2( dirVect.x * g_GameBall.maxSpeed, dirVect.y * g_GameBall.maxSpeed )
 	//g_GameBall.speed = 0
 
 	// Create sprites for Game objects
@@ -100,9 +100,9 @@ endfunction
 
 
 
-function GameLoop()
+function GameLoop( deltaTime as float )
 
-	UpdateLogic()
+	UpdateLogic( deltaTime )
 	DrawObjects()
 endfunction
 
@@ -110,17 +110,14 @@ endfunction
 
 
 
-function UpdateLogic()
+function UpdateLogic( dt as float )
 	// Get user input for Paddle handling
 	UpdateUserInput()
 	
 	// TODO: If possible, try to increase and decrease velocity smoothly, e.g. make the sprite accelerate and brake like a vehicle
 	
-	// TODO: Update Ball movement (use physics!)
-	if g_roundStarted = FALSE
-		SetGameBallStartVelocity()		
-		g_roundStarted = TRUE
-	endif
+	// Update Ball movement (use physics!)
+	UpdateBallBehavior( dt )
 	
 	// TODO: Update AI Paddle movement
 endfunction
@@ -134,8 +131,7 @@ function DrawObjects()
 	setSpritePhysicsVelocity( g_PlayerPaddle.id, g_PlayerPaddle.velocity.x, g_PlayerPaddle.velocity.y )
 	setSpriteAngle( g_PlayerPaddle.id, 0 )
 	
-	
-	
+	// Move AI Paddle
 	setSpriteAngle( g_AIPaddle.id, 0 )
 	
 endfunction
@@ -156,8 +152,73 @@ endfunction
 
 
 
+function UpdateBallBehavior( dt as float )
+
+	vect as Vector2D
+	
+	if g_roundStarted = FALSE
+		SetGameBallStartVelocity()		
+		g_roundStarted = TRUE
+	endif
+	
+	// TODO: THE STARTING ANGLE IS NOW 45 DEGREES! FORCE THE SPRITE TAKE APPROXIMATELY THE SAME ANGLE ON COLLISIONS
+	vect.x = getSpritePhysicsVelocityX( g_GameBall.id )
+	vect.y = getSpritePhysicsVelocityY( g_GameBall.id )
+	vect = normalizeVector2( vect )
+	//setSpritePhysicsVelocity( g_GameBall.id, g_GameBall.velocity.x, g_GameBall.velocity.y )
+	if getSpriteCollision( g_GameBall.id, BOUNDARY_TOP ) = TRUE or getSpriteCollision( g_GameBall.id, BOUNDARY_BOTTOM ) = TRUE or getSpriteCollision( g_GameBall.id, g_PlayerPaddle.id ) = TRUE or getSpriteCollision( g_GameBall.id, g_PlayerPaddle.id ) = TRUE
+		
+	endif
+	
+	setSpritePhysicsAngularVelocity( g_GameBall.id, 0 )
+	
+endfunction
+
+
+
+function SetBallMirroringForce( velocityX as float, spriteHitID as integer )
+	
+	xPos as float
+	yPos as float
+	forceVector as Vector2D	
+	
+	select spriteHitID
+		case BOUNDARY_TOP:
+			if velocityX < 0.0
+				// Impulse point on top-right corner
+				xPos = getSpriteX( g_GameBall.id ) + getSpriteWidth( g_GameBall.id )
+				yPos = getSpriteY( g_GameBall.id )
+				forceVector = getVectorFromAngle( 225.0 )
+			elseif velocityX > 0.0
+				// Impulse point on top-left corner
+				xPos = getSpriteX( g_GameBall.id )
+				yPos = getSpriteY( g_GameBall.id )
+				forceVector = getVectorFromAngle( 135.0 )
+			endif
+		endcase
+		
+		case BOUNDARY_BOTTOM:
+			if velocityX < 0.0
+				// Impulse point on bottom-right corner
+				xPos = getSpriteX( g_GameBall.id ) + getSpriteWidth( g_GameBall.id )
+				yPos = getSpriteY( g_GameBall.id ) + getSpriteHeight( g_GameBall.id )
+				forceVector = getVectorFromAngle( 315.0 )
+			elseif velocityX > 0.0
+				// Impulse point on bottom-left corner
+				xPos = getSpriteX( g_GameBall.id )				
+				yPos = getSpriteY( g_GameBall.id ) + getSpriteHeight( g_GameBall.id )
+				forceVector = getVectorFromAngle( 45.0 )
+			endif
+		endcase
+	endselect
+	
+	SetSpritePhysicsImpulse( g_GameBall.id, xPos, yPos, forceVector.x, forceVector.y )
+endfunction
+
+
+
 
 function SetGameBallStartVelocity()
 	
-	setSpritePhysicsVelocity( g_GameBall.id, g_GameBall.startVelocity.x, g_GameBall.startVelocity.y )
+	setSpritePhysicsVelocity( g_GameBall.id, g_GameBall.velocity.x, g_GameBall.velocity.y )
 endfunction

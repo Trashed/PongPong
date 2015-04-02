@@ -36,9 +36,10 @@ function PrintDebugInfo()
 		print( "FPS = " + left( str( screenFPS() ), 6 ) )						// FPS
 		print( "W = " + str( g_deviceWidth ) + ", H = " + str( g_deviceHeight ) )
 		print( "Sprite count: " + str( getManagedSpriteCount() ) )
+		print( "Frame time: " + str( getFrameTime() ) )
 		
 		if g_GameBall.id <> 0
-			print( "Game ball startVelocity || x = " + str( g_GameBall.startVelocity.x ) + ", y = " + str( g_GameBall.startVelocity.y ) )
+			print( "Game ball startVelocity || x = " + str( g_GameBall.velocity.x ) + ", y = " + str( g_GameBall.velocity.y ) )
 			print( "Game ball velocity || x = " + str( getSpritePhysicsVelocityX( g_GameBall.id ) ) + ", y = " + str( getSpritePhysicsVelocityY( g_GameBall.id ) ) )
 		endif
 	endif

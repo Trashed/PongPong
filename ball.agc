@@ -13,7 +13,7 @@
 
 
 
-function CreateBall( id as integer, x as integer, y as integer )
+/*function CreateBall( id as integer, x as integer, y as integer )
 
 	ball as GameBall
 	ball.id = id	
@@ -23,5 +23,5 @@ function CreateBall( id as integer, x as integer, y as integer )
 	ball.offset = radius / 2
 	ball.startVelocity = makeVector2( 0.0, 0.0 )
 	ball.maxSpeed = 20
-endfunction ball
+endfunction ball*/
  

@@ -39,7 +39,7 @@ type GameBall
 	y as integer
 	diameter as float
 	offset as float
-	startVelocity as Vector2D
+	velocity as Vector2D
 	maxSpeed as integer
 	//speed as integer
 endtype
@@ -62,6 +62,8 @@ function InitApplication( )
 	global g_DeviceHeight as float : g_DeviceHeight = getDeviceHeight()
 
 	global g_gameState = STATE_MAIN_MENU
+	
+	global g_lastFrameTime as float
 	
 	global g_roundStarted = FALSE
 
