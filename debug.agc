@@ -39,7 +39,7 @@ function PrintDebugInfo()
 		print( "Frame time: " + str( getFrameTime() ) )
 		
 		if g_GameBall.id <> 0
-			print( "Game ball startVelocity || x = " + str( g_GameBall.velocity.x ) + ", y = " + str( g_GameBall.velocity.y ) )
+			print( "Game ball start velocity || x = " + str( g_GameBall.velocity.x ) + ", y = " + str( g_GameBall.velocity.y ) )
 			print( "Game ball velocity || x = " + str( getSpritePhysicsVelocityX( g_GameBall.id ) ) + ", y = " + str( getSpritePhysicsVelocityY( g_GameBall.id ) ) )
 		endif
 	endif
